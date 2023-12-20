@@ -107,7 +107,7 @@ async def link_handler(Mbot, message):
             await message.reply(f"400: Sorry, Unable To Find It  try another or report it  to @masterolic or support chat @spotify_supportbot 🤖  ")
 
         finally:
-            if 'dump_file' in locals():
+            
                
             if 'downfile' in locals():
                 os.remove(downfile)
