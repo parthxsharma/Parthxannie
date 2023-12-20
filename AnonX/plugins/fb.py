@@ -51,3 +51,9 @@ async def link_handler(app, message):
                         os.remove(down_file)
                       except:
                          return await message.reply("Oops Failed To Send File Instead Of Link")
+                  finally:
+            
+               
+            if 'downfile' in locals():
+                os.remove(downfile)
+            
