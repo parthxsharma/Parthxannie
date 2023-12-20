@@ -1,15 +1,15 @@
 from pyrogram import filters, Client as Mbot
 import bs4, requests,re,asyncio
 import wget,os,traceback
-
-@Mbot.on_message(filters.regex(r'https?://.*facebook[^\s]+') & filters.incoming,group=-6)
-async def link_handler(Mbot, message):
+from AnonX import app
+@app.on_message(filters.regex(r'https?://.*facebook[^\s]+') & filters.incoming,group=-6)
+async def link_handler(app, message):
     link = message.matches[0].group(0)
     try:
-       m = await message.reply_text("⏳")
+       m = await message.reply_text("✨")
        get_api=requests.get(f"https://yasirapi.eu.org/fbdl?link={link}").json()
        if get_api['success'] == "false":
-          return await message.reply("Invalid TikTok video url. Please try again :)")
+          return await message.reply("Invalid video url. Please try again :)")
        if get_api['success'] == "ok":
           if get_api.get('result').get('hd'):
              try:
