@@ -16,35 +16,16 @@ headers = {
     "Referer": "https://saveig.app/en",
 }
 
-@app.on_message(filters.regex(r'https?://.*facebook[^\s]+') & filters.incoming,group=-6)
-async def link_handler(app, message):
-    link = message.matches[0].group(0)
-    try:
-       m = await message.reply_text("⏳")
-       get_api=requests.get(f"https://yasirapi.eu.org/fbdl?link={link}").json()
-       if get_api['success'] == "false":
-          return await message.reply("Invalid TikTok video url. Please try again :)")
-       if get_api['success'] == "ok":
-          if get_api.get('result').get('hd'):
-             try:
-                 dump_file = await message.reply_video(get_api['result']['hd'],caption="Thank you for using")
-             except KeyError:
-                 pass 
-             except Exception:
-                 try:
-                     sndmsg = await message.reply(get_api['result']['hd'])
-                     await asyncio.sleep(1)
-                     dump_file = await message.reply_video(get_api['result']['hd'],caption="Thank you for using")
-                     await sndmsg.delete()
+
                  
                      
 
-@app.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming,group=-6)
+@app.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming)
 async def link_handler(app, message):
     link = message.matches[0].group(0)
     global headers
     try:
-        m = await message.reply_sticker("CAACAgIAAxkBATWhF2Qz1Y-FKIKqlw88oYgN8N82FtC8AAJnAAPb234AAT3fFO9hR5GfHgQ")
+        m = await message.reply_text("RUKJA")
         url= link.replace("instagram.com","ddinstagram.com")
         url=url.replace("==","%3D%3D")
         if url.endswith("="):
