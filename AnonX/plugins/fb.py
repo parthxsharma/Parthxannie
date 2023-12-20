@@ -49,4 +49,5 @@ async def link_handler(app, message):
                         await message.reply_video(down_file,caption="Thank you for using")
                         await sndmsg.delete()
                         os.remove(down_file)
-                      
+                    except:
+                         return await message.reply("Oops Failed To Send File Instead Of Link")
