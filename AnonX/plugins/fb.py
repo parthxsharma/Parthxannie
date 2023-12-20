@@ -16,19 +16,16 @@ async def link_handler(app, message):
              try:
                  dump_file = await message.reply_video(get_api['result']['hd'],caption="Thank you for using - @InstaReelsdownbot")
              except KeyError:
-                 pass 
-             except Exception:
-                 try:
-                     sndmsg = await message.reply(get_api['result']['hd'])
-                     await asyncio.sleep(1)
-                     dump_file = await message.reply_video(get_api['result']['hd'],caption="Thank you for using - @InstaReelsdownbot")
-                     await sndmsg.delete()
-                 except Exception:
-                     try:
-                        down_file = wget.download(get_api['result']['hd'])
-                        await message.reply_video(down_file,caption="Thank you for using - @InstaReelsdownbot")
-                        await sndmsg.delete()
-                        os.remove(down_file)
-                     except:
-                         return await message.reply("Oops Failed To Send File Instead Of Link")
+             await message.reply(f"400: Sorry, Unable To Find It Make Sure Its Publically Available :)")
+        except Exception as e:
+          #  await message.reply_text(f"https://ddinstagram.com{content_value}")
+            
+          #     await message.reply(tracemsg)
+            ##optinal 
+            await message.reply(f"400: Sorry, Unable To Find It  try another or report it  to @masterolic or support chat @spotify_supportbot 🤖  ")
 
+        finally:
+            
+               
+            if 'downfile' in locals():
+                os.remove(downfile)
