@@ -1,15 +1,10 @@
 {
-    "name": "ᴀɴᴏɴ ダ ᴍᴜsɪᴄ",
+    "name": "Annie",
     "description": "A Telegram Music Player Bot, written in Python with Pyrogram and Py-Tgcalls.",
-    "logo": "https://telegra.ph/file/56d1760224589ee370186.jpg",
     "keywords": [
     "python3",
     "telegram",
-    "bot",
-    "AnonX",
-    "MusicBot",
-    "telegram-bot",
-    "pyrogram"
+    "bot"
     ],
     "env": {
       "API_ID": {
@@ -34,7 +29,7 @@
       },
       "MUSIC_BOT_NAME": {
         "description": "A name for your Music Bot. You can use special characters bot ko jhaat farak ni padega",
-        "value": "ᴀɴᴏɴ ダ ᴍᴜsɪᴄ",
+        "value": "",
         "required": true
       },
       "OWNER_ID": {
@@ -50,12 +45,12 @@
       "HEROKU_API_KEY": {
         "description": "Your Heroku account's API key",
         "value": "",
-        "required": false
+        "required": true
       },
       "HEROKU_APP_NAME": {
         "description": "Your heroku app/bot's name",
         "value": "",
-        "required": false
+        "required": true
       },
       "LOG_GROUP_ID": {
         "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
