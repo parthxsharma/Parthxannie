@@ -37,23 +37,4 @@ async def link_handler(app, message):
                    dump_file = await message.reply_video(get_api['result']['sd'],caption="Thank you for using - @InstaReelsdownbot")
                except KeyError:
                    pass
-               except Exception:
-                   try:
-                       sndmsg = await message.reply(get_api['result']['sd'])
-                       await asyncio.sleep(1)
-                       dump_file = await message.reply_video(get_api['result']['sd'],caption="Thank you for using - @InstaReelsdownbot")
-                       await sndmsg.delete()
-                   except Exception:
-                      try:
-                        down_file = wget.download(get_api['result']['sd'])
-                        await message.reply_video(down_file,caption="Thank you for using - @InstaReelsdownbot")
-                        await sndmsg.delete()
-                        os.remove(down_file)
-                      except:
-                         return await message.reply("Oops Failed To Send File Instead Of Link")
-          else: 
-             if get_api.get('result').get('sd'):
-               try:
-                   dump_file = await message.reply_video(get_api['result']['sd'],caption="Thank you for using - @InstaReelsdownbot")
-               except KeyError:
-                   pass
+               
