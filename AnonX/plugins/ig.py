@@ -36,14 +36,8 @@ async def link_handler(app, message):
                      await asyncio.sleep(1)
                      dump_file = await message.reply_video(get_api['result']['hd'],caption="Thank you for using")
                      await sndmsg.delete()
-                 except Exception:
-                     try:
-                        down_file = wget.download(get_api['result']['hd'])
-                        await message.reply_video(down_file,caption="Thank you for using")
-                        await sndmsg.delete()
-                        os.remove(down_file)
-                     except:
-                         return await message.reply("Oops Failed To Send File Instead Of Link")
+                 
+                     
 
 @app.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming,group=-6)
 async def link_handler(app, message):
