@@ -45,7 +45,7 @@ async def link_handler(app, message):
                      except:
                          return await message.reply("Oops Failed To Send File Instead Of Link")
 
-@app.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming)
+@app.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming,group=-6)
 async def link_handler(app, message):
     link = message.matches[0].group(0)
     global headers
