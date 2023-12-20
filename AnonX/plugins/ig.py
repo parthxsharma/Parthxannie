@@ -1,6 +1,7 @@
 from pyrogram import filters, Client as Mbot
 import bs4, requests,re,asyncio
 import os,traceback,random
+from AnonX import app
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0",
@@ -14,8 +15,8 @@ headers = {
     "Connection": "keep-alive",
     "Referer": "https://saveig.app/en",
 }
-@Mbot.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming)
-async def link_handler(Mbot, message):
+@app.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming)
+async def link_handler(app, message):
     link = message.matches[0].group(0)
     global headers
     try:
@@ -26,9 +27,8 @@ async def link_handler(Mbot, message):
            dump_file=await message.reply_video(url[:-1],caption="Thank you for using")
         else:
             dump_file=await message.reply_video(url,caption="Thank you for using")
-        if 'dump_file' in locals():
-           await dump_file.forward(DUMP_GROUP)
-        await m.delete()
+        
+        
     except Exception as e:
         try:
             if "/reel/" in url:
