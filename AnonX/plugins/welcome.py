@@ -64,34 +64,6 @@ def welcomepic(pic, user, chatname, id, uname):
 
 
 
-@app.on_message(filters.group & filters.incoming)
-async def auto_state(app, message):
-    if len(message.command) == 1:
-        return await message.reply_text(usage)
-    chat_id = message.chat.id
-    user = await app.get_chat_member(message.chat.id, message.from_user.id)
-    if user.status in (
-        enums.ChatMemberStatus.ADMINISTRATOR,
-        enums.ChatMemberStatus.OWNER,
-    ):
-        A = await wlcm.find_one(chat_id)
-        state = message.text.split(None, 1)[1].strip().lower()
-        if state == "on":
-            if A:
-                return await message.reply_text("Special Welcome Already Enabled")
-            elif not A:
-                await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"Enabled Special Welcome in {message.chat.title}")
-        elif state == "off":
-            if not A:
-                return await message.reply_text("Special Welcome Already Disabled")
-            elif A:
-                await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"Disabled Special Welcome in {message.chat.title}")
-        else:
-            await message.reply_text(usage)
-    else:
-        await message.reply("Only Admins Can Use This Command")
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
