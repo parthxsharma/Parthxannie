@@ -13,6 +13,7 @@ from config import YOUTUBE_IMG_URL
 from AnonX import app
 
 
+
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
     heightRatio = maxHeight / image.size[1]
@@ -22,13 +23,13 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 
-def add_corners(im):
-    bigsize = (im.size[0] * 3, im.size[1] * 3)
-    mask = Image.new("L", bigsize, 0)
-    ImageDraw.Draw(mask).ellipse((0, 0) + bigsize, fill=255)
-    mask = mask.resize(im.size, Image.LANCZOS)
-    mask = ImageChops.darker(mask, im.split()[-1])
-    im.putalpha(mask)
+def clear(text):
+    list = text.split(" ")
+    title = ""
+    for i in list:
+        if len(title) + len(i) < 60:
+            title += f" {i}"
+    return title.strip()
 
 
 async def gen_thumb(videoid, user_id):
@@ -90,7 +91,7 @@ async def gen_thumb(videoid, user_id):
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
                     ((1280 - text_w) / 2, 530),
-                    f"{para[0]}",
+                    f"",
                     fill="white",
                     stroke_width=1,
                     stroke_fill="white",
@@ -100,7 +101,7 @@ async def gen_thumb(videoid, user_id):
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
                     ((1280 - text_w) / 2, 580),
-                    f"{para[1]}",
+                    f"",
                     fill="white",
                     stroke_width=1,
                     stroke_fill="white",
@@ -108,7 +109,7 @@ async def gen_thumb(videoid, user_id):
                 )
         except:
             pass
-        text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
+        text_w, text_h = draw.textsize(f"", font=arial)
         draw.text(
             ((1280 - text_w) / 2, 660),
             f"",
