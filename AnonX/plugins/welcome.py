@@ -117,15 +117,3 @@ Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
 
  
 
-@app.on_message(filters.new_chat_members & filters.group, group=-1)
-async def bot_wel(app, message):
-    for u in message.new_chat_members:
-        if u.id == app.me.id:
-            await app.send_message(LOG_GROUP_ID, f"""
-**NEW GROUP
-➖➖➖➖➖➖➖➖➖➖➖➖
-NAME: {message.chat.title}
-ID: {message.chat.id}
-USERNAME: @{message.chat.username}
-➖➖➖➖➖➖➖➖➖➖➖➖**
-""")
