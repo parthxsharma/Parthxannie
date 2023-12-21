@@ -1,6 +1,7 @@
 from pyrogram import filters, Client as Mbot
 from os import mkdir,environ 
 from random import randint
+from config import LOG_GROUP_ID
 from pyrogram import filters
 from shutil import rmtree 
 from youtube_search import YoutubeSearch
@@ -9,7 +10,6 @@ from requests import get
 import traceback
 from AnonX import app
 
-
 async def thumb_down(videoId):
     with open(f"/tmp/{videoId}.jpg","wb") as file:
         file.write(get(f"https://img.youtube.com/vi/{videoId}/default.jpg").content)
@@ -17,7 +17,7 @@ async def thumb_down(videoId):
 async def ytdl_video(path, video_url, id):
     print(video_url)
     qa = "mp4"  # Set to MP4 format
-    file = f"{path}/%(title)s.%(ext)s"
+    file = f"{pa}/%(title)s.%(ext)s"
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'default_search': 'ytsearch',
@@ -45,7 +45,22 @@ async def ytdl_video(path, video_url, id):
             print(filename)
             return filename
         except Exception as e:
-           
+           if FIXIE_SOCKS_HOST:
+                ydl_opts = {
+               'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+               'default_search': 'ytsearch',
+               'noplaylist': True,
+               "nocheckcertificate": True,
+               "outtmpl": file,
+               "quiet": True,
+               "addmetadata": True,
+               "prefer_ffmpeg": True,
+               "geo_bypass": True,
+               "cache-dir": "/tmp/",
+               "nocheckcertificate": True
+            
+    }
+                with YoutubeDL(ydl_opts) as ydl:
                    try:
                        video = ydl.extract_info(video_url, download=True)
                        filename = ydl.prepare_filename(video)
@@ -140,12 +155,19 @@ async def _(app,message):
             if os.path.exists(randomdir):
                rmtree(randomdir)
             await m.delete()
-            
+            if LOG_GROUP_ID:
+                await AForCopy.copy(LOG_GROUP_ID)
+        except Exception as e:
+            await m.delete()
+            if LOG_GROUP_ID:
+               await app.send_message(LOG_GROUP_ID,f"YouTube Shorts {e} {link}")
+               await message.reply(f"400: Sorry, Unable To Find It  try another or report it  to @masterolic or support chat @spotify_supportbot 🤖  ")
+               print(traceback.format_exc())
+               await app.send_message(LOG_GROUP_ID, traceback.format_exc())
                
-        
-    
-     if "music.youtube.com" in link:
-        try: 
+        return await message.reply("Check out @spotify_downloa_bot(music)  @spotifynewss(Channel) \n Please Support Us By /donate To Maintain This Project")
+    try:
+        if "music.youtube.com" in link:
             link=link.replace("music.youtube.com","youtube.com")
         ids = await getIds(link)
         videoInPlaylist = len(ids)
@@ -163,10 +185,17 @@ async def _(app,message):
           #  await message.reply(fileLink)
         #    await message.reply_audio(fileLink)
             AForCopy = await message.reply_audio(fileLink,caption=f"[{id[3]}](https://youtu.be/{id[0]}) - {id[2]} Thank you for using - @InstaReelsdownbot",title=id[3].replace("_"," "),performer=id[2],thumb=thumnail,duration=id[4])
-            
+            if LOG_GROUP_ID:
+                await PForCopy.copy(LOG_GROUP_ID)
+                await AForCopy.copy(LOG_GROUP_ID)
+        await m.delete()
         if os.path.exists(randomdir):
            rmtree(randomdir)
         await message.reply("Check out @spotify_downloa_bot(music)  @spotifynewss(Channel) \n Please Support Us By /donate To Maintain This Project")
     except Exception as e:
         print(e)
-        
+        if LOG_GROUP_ID:
+               await app.send_message(LOG_GROUP_ID,f"Youtube {e} {link}")
+               await message.reply(f"400: Sorry, Unable To Find It  try another or report it  to @masterolic or support chat @spotify_supportbot 🤖  ")
+               await app.send_message(LOG_GROUP_ID, traceback.format_exc())
+            
