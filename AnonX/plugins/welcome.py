@@ -67,7 +67,7 @@ def welcomepic(pic, user, chatname, id, uname):
 
 
 
-@app.on_message(filters.chat_member_updated & filters.group, group=-3)
+@app.on_app.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     A = await wlcm.find_one(chat_id)  
