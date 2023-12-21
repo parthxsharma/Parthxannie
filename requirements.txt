@@ -9,7 +9,7 @@ hachoir
 heroku3
 lyricsgenius
 motor
-pillow==9.5.0
+pillow
 psutil
 py-tgcalls
 pykeyboard
