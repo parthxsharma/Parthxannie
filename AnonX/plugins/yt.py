@@ -144,7 +144,8 @@ async def _(app,message):
                
         
     
-        if "music.youtube.com" in link:
+     if "music.youtube.com" in link:
+        try: 
             link=link.replace("music.youtube.com","youtube.com")
         ids = await getIds(link)
         videoInPlaylist = len(ids)
