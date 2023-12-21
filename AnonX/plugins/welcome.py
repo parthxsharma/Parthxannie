@@ -1,4 +1,6 @@
-import os
+from pyrogram import filters, Client as Mbot
+import bs4, requests,re,asyncio
+import os,traceback,random
 from PIL import ImageDraw, Image, ImageFont, ImageChops
 from pyrogram import *
 from pyrogram.types import *
@@ -15,8 +17,9 @@ class WelDatabase:
         return chat_id in self.data
 
     async def add_wlcm(self, chat_id):
-        self.data[chat_id] = {}  
-        
+        self.data[chat_id] = {}  # You can store additional information related to the chat
+        # For example, self.data[chat_id]['some_key'] = 'some_value'
+
     async def rm_wlcm(self, chat_id):
         if chat_id in self.data:
             del self.data[chat_id]
@@ -30,7 +33,6 @@ class temp:
     MELCOW = {}
     U_NAME = None
     B_NAME = None
-
 
 
 def circle(pfp, size=(500, 500)):
@@ -54,8 +56,8 @@ def welcomepic(pic, user, chatname, id, uname):
     welcome_font = ImageFont.truetype('AnonX/assets/font.ttf', size=60)
     draw.text((30, 300), f'NAME: {user}', fill=(255, 255, 255), font=font)
     draw.text((30, 370), f'ID: {id}', fill=(255, 255, 255), font=font)
-    draw.text((30, 40), f'Chat: {chatname}', fill=(225, 225, 225), font=welcome_font)
-    draw.text((30, 430), f'USERNAME : {uname}', fill=(255, 255, 255), font=font)
+    draw.text((30, 40), f"{chatname}", fill=(225, 225, 225), font=welcome_font)
+    draw.text((30, 430), f"USERNAME : {uname}", fill=(255, 255, 255), font=font)
     pfp_position = (671, 134)
     background.paste(pfp, pfp_position, pfp)
     background.save(f"downloads/welcome#{id}.png")
@@ -65,8 +67,8 @@ def welcomepic(pic, user, chatname, id, uname):
 
 
 
-@app.on_chat_member_updated(filters.group, group=-3)
-async def greet_group(app, member: ChatMemberUpdated):
+@app.on_message(filters.ChatMemberUpdated & filters.group, group=-3)
+async def greet_group(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     A = await wlcm.find_one(chat_id)  
     if not A:
@@ -104,6 +106,7 @@ Iᴅ ✧ {user.id}
 Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
 ➖➖➖➖➖➖➖➖➖➖➖➖**
 """,
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"⦿ ᴀᴅᴅ ᴍᴇ ⦿", url=f"https://t.me/YumikooBot?startgroup=true")]])
         )
     except Exception as e:
         LOGGER.error(e)
@@ -113,5 +116,17 @@ Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
     except Exception as e:
         pass
 
- 
 
+
+@app.on_message(filters.new_chat_members & filters.group, group=-1)
+async def bot_wel(_, message):
+    for u in message.new_chat_members:
+        if u.id == app.me.id:
+            await app.send_message(LOG_CHANNEL_ID, f"""
+**NEW GROUP
+➖➖➖➖➖➖➖➖➖➖➖➖
+NAME: {message.chat.title}
+ID: {message.chat.id}
+USERNAME: @{message.chat.username}
+➖➖➖➖➖➖➖➖➖➖➖➖**
+""")
