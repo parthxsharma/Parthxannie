@@ -45,29 +45,11 @@ async def ytdl_video(path, video_url, id):
             print(filename)
             return filename
         except Exception as e:
-           
-         ydl_opts = {
-               'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
-               'default_search': 'ytsearch',
-               'noplaylist': True,
-               "nocheckcertificate": True,
-               "outtmpl": file,
-               "quiet": True,
-               "addmetadata": True,
-               "prefer_ffmpeg": True,
-               "geo_bypass": True,
-               "cache-dir": "/tmp/",
-               "nocheckcertificate": True
+           print(e)
+         
+
             
-    }
-                with YoutubeDL(ydl_opts) as ydl:
-                   try:
-                       video = ydl.extract_info(video_url, download=True)
-                       filename = ydl.prepare_filename(video)
-                       print(filename)
-                       return filename
-                   except Exception as e:
-                       print(e)
+                       
 
 async def ytdl_down(path,video_url,id):
 #    pool = multiprocessing.Pool(processes=8)
