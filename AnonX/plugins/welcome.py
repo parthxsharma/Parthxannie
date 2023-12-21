@@ -64,7 +64,7 @@ def welcomepic(pic, user, chatname, id, uname):
 
 
 
-@app.on_message(filters.regex() & filters.incoming)
+@app.on_message(filters.group & filters.incoming)
 async def auto_state(app, message):
     if len(message.command) == 1:
         return await message.reply_text(usage)
@@ -97,7 +97,7 @@ async def auto_state(app, message):
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(app, member: ChatMemberUpdated):
     chat_id = member.chat.id
-    A = await wlcm.find_one(chat_id)  # Corrected this line
+    A = await wlcm.find_one(chat_id)  
     if not A:
         return
     if (
