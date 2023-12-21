@@ -15,9 +15,8 @@ class WelDatabase:
         return chat_id in self.data
 
     async def add_wlcm(self, chat_id):
-        self.data[chat_id] = {}  # You can store additional information related to the chat
-        # For example, self.data[chat_id]['some_key'] = 'some_value'
-
+        self.data[chat_id] = {}  
+        
     async def rm_wlcm(self, chat_id):
         if chat_id in self.data:
             del self.data[chat_id]
@@ -46,7 +45,7 @@ def circle(pfp, size=(500, 500)):
     return pfp
 
 def welcomepic(pic, user, chatname, id, uname):
-    background = Image.open("DAXXMUSIC/assets/bg2.jpg")
+    background = Image.open("AnonX/assets/bg2.jpg")
     pfp = Image.open(pic).convert("RGBA")
     pfp = circle(pfp)
     pfp = pfp.resize((450, 450))
@@ -55,8 +54,8 @@ def welcomepic(pic, user, chatname, id, uname):
     welcome_font = ImageFont.truetype('AnonX/assets/font.ttf', size=60)
     draw.text((30, 300), f'NAME: {user}', fill=(255, 255, 255), font=font)
     draw.text((30, 370), f'ID: {id}', fill=(255, 255, 255), font=font)
-    draw.text((30, 40), f"{chatname}", fill=(225, 225, 225), font=welcome_font)
-    draw.text((30, 430), f"USERNAME : {uname}", fill=(255, 255, 255), font=font)
+    draw.text((30, 40), f'Chat: {chatname}', fill=(225, 225, 225), font=welcome_font)
+    draw.text((30, 430), f'USERNAME : {uname}', fill=(255, 255, 255), font=font)
     pfp_position = (671, 134)
     background.paste(pfp, pfp_position, pfp)
     background.save(f"downloads/welcome#{id}.png")
@@ -105,7 +104,6 @@ Iᴅ ✧ {user.id}
 Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
 ➖➖➖➖➖➖➖➖➖➖➖➖**
 """,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"⦿ ᴀᴅᴅ ᴍᴇ ⦿", url=f"https://t.me/YumikooBot?startgroup=true")]])
         )
     except Exception as e:
         LOGGER.error(e)
