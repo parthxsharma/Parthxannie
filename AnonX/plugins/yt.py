@@ -17,7 +17,7 @@ async def thumb_down(videoId):
 async def ytdl_video(path, video_url, id):
     print(video_url)
     qa = "mp4"  # Set to MP4 format
-    file = f"{pa}/%(title)s.%(ext)s"
+    file = f"{path}/%(title)s.%(ext)s"
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'default_search': 'ytsearch',
