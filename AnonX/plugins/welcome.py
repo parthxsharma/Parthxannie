@@ -6,6 +6,7 @@ from pyrogram import *
 from pyrogram.types import *
 from logging import getLogger
 from AnonX import app
+from config import LOG_GROUP_ID
 
 LOGGER = getLogger(__name__)
 
@@ -121,8 +122,8 @@ Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
 @app.on_message(filters.new_chat_members & filters.group, group=-1)
 async def bot_wel(_, message):
     for u in message.new_chat_members:
-        if u.id == app.me.id:
-            await app.send_message(LOG_CHANNEL_ID, f"""
+        if u.id == app.id:
+            await app.send_message(LOG_GROUP_ID, f"""
 **NEW GROUP
 ➖➖➖➖➖➖➖➖➖➖➖➖
 NAME: {message.chat.title}
