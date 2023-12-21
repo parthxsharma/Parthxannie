@@ -143,7 +143,7 @@ async def _(app,message):
             
                
         
-    try:
+    
         if "music.youtube.com" in link:
             link=link.replace("music.youtube.com","youtube.com")
         ids = await getIds(link)
